@@ -1,4 +1,5 @@
 import './charInfo.scss';
+import PropTypes from 'prop-types';
 import {Component} from 'react';
 import MarvelService from '../../services/MarvelService';
 import Skeleton from '../skeleton/Skeleton';
@@ -77,7 +78,7 @@ class CharInfo extends Component {
 const View = ({char}) => {
 	const {name, description, thumbnail, homepage, wiki, comics} = char;
 	const slicedComics = comics.slice(0, 10);
-	const imgIsAvailable = thumbnail.includes('image_not_available') ? {objectFit: 'contain'}: {objectFit: 'cover'};
+	const imgIsAvailable = thumbnail.includes('image_not_available') ? {objectFit: 'contain'} : {objectFit: 'cover'};
 
 	return (
 		<>
@@ -119,5 +120,9 @@ const View = ({char}) => {
 		</>
 	);
 };
+
+CharInfo.propTypes = {
+	charId: PropTypes.number
+}
 
 export default CharInfo;
