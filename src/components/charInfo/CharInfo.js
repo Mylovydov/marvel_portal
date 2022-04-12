@@ -1,79 +1,134 @@
 import './charInfo.scss';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
+import {useEffect, useState} from 'react';
 import MarvelService from '../../services/MarvelService';
 import Skeleton from '../skeleton/Skeleton';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 
-class CharInfo extends Component {
-	state = {
-		charInfo: null,
-		loading: false,
-		error: false
-	};
+const CharInfo = ({charId}) => {
+	const [charInfo, setCharInfo] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
 
-	marvelService = new MarvelService();
+	const marvelService = new MarvelService();
 
-	componentDidMount() {
-		this.updateChar();
-	}
+	useEffect(() => {
+		updateChar();
+	}, []);
 
-	componentDidUpdate(prevProps) {
-		if (this.props.charId !== prevProps.charId) {
-			this.updateChar();
-		}
-	}
+	useEffect(() => {
+		updateChar();
+	}, [charId]);
 
-	updateChar = () => {
-		const {charId} = this.props;
+	const updateChar = () => {
 		if (!charId) return;
 
-		this.onCharInfoLoading();
+		onCharInfoLoading();
 
-		this.marvelService
+		marvelService
 			.getCharacter(charId)
-			.then(this.onCharInfoLoaded)
-			.catch(this.onError);
+			.then(onCharInfoLoaded)
+			.catch(onError);
 	};
 
-	onCharInfoLoading = () => {
-		this.setState({
-			loading: true
-		});
+	const onCharInfoLoading = () => {
+		setLoading(true);
 	};
 
-	onCharInfoLoaded = (charInfo) => {
-		this.setState({
-			loading: false,
-			charInfo
-		});
+	const onCharInfoLoaded = (charInfo) => {
+		setLoading(false);
+		setCharInfo(charInfo)
 	};
 
-	onError = () => {
-		this.setState({
-			error: true
-		});
+	const onError = () => {
+		setError(true)
 	};
 
-	render() {
-		const {charInfo, loading, error} = this.state;
+	const skeleton = charInfo || loading || error ? null : <Skeleton/>;
+	const errorMessage = error ? <ErrorMessage/> : null;
+	const spinner = loading ? <Spinner/> : null;
+	const content = !(loading || error || !charInfo) ? <View char={charInfo}/> : null;
 
-		const skeleton = charInfo || loading || error ? null : <Skeleton/>;
-		const errorMessage = error ? <ErrorMessage/> : null;
-		const spinner = loading ? <Spinner/> : null;
-		const content = !(loading || error || !charInfo) ? <View char={charInfo}/> : null;
 
-		return (
-			<div className="char__info">
-				{skeleton}
-				{errorMessage}
-				{spinner}
-				{content}
-			</div>
-		);
-	}
+	return (
+		<div className="char__info">
+			{skeleton}
+			{errorMessage}
+			{spinner}
+			{content}
+		</div>
+	);
 };
+
+// class CharInfo extends Component {
+// 	state = {
+// 		charInfo: null,
+// 		loading: false,
+// 		error: false
+// 	};
+//
+// 	marvelService = new MarvelService();
+//
+// 	componentDidMount() {
+// 		this.updateChar();
+// 	}
+//
+// 	componentDidUpdate(prevProps) {
+// 		if (this.props.charId !== prevProps.charId) {
+// 			this.updateChar();
+// 		}
+// 	}
+//
+// 	updateChar = () => {
+// 		const {charId} = this.props;
+// 		if (!charId) return;
+//
+// 		this.onCharInfoLoading();
+//
+// 		this.marvelService
+// 			.getCharacter(charId)
+// 			.then(this.onCharInfoLoaded)
+// 			.catch(this.onError);
+// 	};
+//
+// 	onCharInfoLoading = () => {
+// 		this.setState({
+// 			loading: true
+// 		});
+// 	};
+//
+// 	onCharInfoLoaded = (charInfo) => {
+// 		this.setState({
+// 			loading: false,
+// 			charInfo
+// 		});
+// 	};
+//
+// 	onError = () => {
+// 		this.setState({
+// 			error: true
+// 		});
+// 	};
+//
+// 	render() {
+// 		const {charInfo, loading, error} = this.state;
+//
+// 		const skeleton = charInfo || loading || error ? null : <Skeleton/>;
+// 		const errorMessage = error ? <ErrorMessage/> : null;
+// 		const spinner = loading ? <Spinner/> : null;
+// 		const content = !(loading || error || !charInfo) ? <View char={charInfo}/> : null;
+//
+// 		return (
+// 			<div className="char__info">
+// 				{skeleton}
+// 				{errorMessage}
+// 				{spinner}
+// 				{content}
+// 			</div>
+// 		);
+// 	}
+// };
 
 const View = ({char}) => {
 	const {name, description, thumbnail, homepage, wiki, comics} = char;
@@ -123,6 +178,6 @@ const View = ({char}) => {
 
 CharInfo.propTypes = {
 	charId: PropTypes.number
-}
+};
 
 export default CharInfo;
