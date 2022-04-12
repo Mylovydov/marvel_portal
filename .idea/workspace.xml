@@ -2,23 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c7f3b48-b1f5-45e3-af67-0dfbfaf43e4c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/errorBoundary/ErrorBoundary.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/app/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/appBanner/AppBanner.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/appBanner/AppBanner.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/appHeader/AppHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/appHeader/AppHeader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/charInfo/CharInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/charInfo/CharInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/charList/CharList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/charList/CharList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/comicsList/ComicsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/comicsList/ComicsList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/randomChar/RandomChar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/randomChar/RandomChar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/singleComic/SingleComic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/singleComic/SingleComic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/skeleton/Skeleton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/skeleton/Skeleton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/spinner/Spinner.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/spinner/Spinner.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/MarvelService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/MarvelService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/button.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/button.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +42,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../example" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -78,6 +64,9 @@
       <workItem from="1649576871810" duration="24223000" />
       <workItem from="1649663514148" duration="11708000" />
       <workItem from="1649683472264" duration="3989000" />
+      <workItem from="1649688725339" duration="92000" />
+      <workItem from="1649747245850" duration="39000" />
+      <workItem from="1649748511559" duration="2106000" />
     </task>
     <servers />
   </component>
