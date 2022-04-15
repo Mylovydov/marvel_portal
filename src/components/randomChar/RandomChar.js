@@ -2,46 +2,32 @@ import {useEffect, useState} from 'react';
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 import Spinner from '../spinner/Spinner';
-import MarvelService from '../../services/MarvelService';
+import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 
 const RandomChar = () => {
 	const [char, setChar] = useState({});
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(false);
 
-	const marvelService = new MarvelService();
+	const {getCharacter, loading, error, clearError} = useMarvelService();
 
 	useEffect(() => {
 		updateChar();
 
-		// const timerId = setInterval(updateChar, 8000)
-		// return () => {
-		// 	clearInterval(timerId)
-		// };
+		const timerId = setInterval(updateChar, 40000);
+		return () => {
+			clearInterval(timerId);
+		};
 	}, []);
 
 	const updateChar = () => {
+		clearError();
 		const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-		onCharLoading();
-		marvelService
-			.getCharacter(id)
-			.then(onCharLoaded)
-			.catch(onError);
+		getCharacter(id)
+			.then(onCharLoaded);
 	};
 
 	const onCharLoaded = (char) => {
 		setChar({...char});
-		setLoading(false);
-	};
-
-	const onCharLoading = () => {
-		setLoading(true);
-	};
-
-	const onError = () => {
-		setLoading(false);
-		setError(true);
 	};
 
 	const errorMessage = error ? <ErrorMessage/> : null;
@@ -61,7 +47,10 @@ const RandomChar = () => {
 				<p className="randomchar__title">
 					Or choose another one
 				</p>
-				<button className="button button__main">
+				<button
+					className="button button__main"
+					disabled={loading}
+				>
 					<div className="inner" onClick={() => updateChar()}>try it</div>
 				</button>
 				<img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
@@ -69,6 +58,34 @@ const RandomChar = () => {
 		</div>
 	);
 };
+
+const View = ({char}) => {
+	const {name, description, thumbnail, homepage, wiki} = char;
+	const imgStyle = thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' ? {objectFit: 'unset'} : {objectFit: 'cover'};
+
+	return (
+		<div className="randomchar__block">
+			<img src={thumbnail} style={imgStyle} alt="Random character" className="randomchar__img"/>
+			<div className="randomchar__info">
+				<p className="randomchar__name">{name}</p>
+				<p className="randomchar__descr">
+					{description ? description.substring(0, 150) + '...' : 'No data for this character'}
+				</p>
+				<div className="randomchar__btns">
+					<a href={homepage} className="button button__main">
+						<div className="inner">homepage</div>
+					</a>
+					<a href={wiki} className="button button__secondary">
+						<div className="inner">Wiki</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	);
+};
+export default RandomChar;
+
+
 
 // class RandomChar extends Component {
 // 	state = {
@@ -146,29 +163,3 @@ const RandomChar = () => {
 // 		);
 // 	}
 // };
-
-const View = ({char}) => {
-	const {name, description, thumbnail, homepage, wiki} = char;
-	const imgIsAvailable = thumbnail.includes('image_not_available') ? {objectFit: 'contain'} : {objectFit: 'cover'};
-
-	return (
-		<div className="randomchar__block">
-			<img src={thumbnail} style={imgIsAvailable} alt="Random character" className="randomchar__img"/>
-			<div className="randomchar__info">
-				<p className="randomchar__name">{name}</p>
-				<p className="randomchar__descr">
-					{description ? description.substring(0, 150) + '...' : 'No data for this character'}
-				</p>
-				<div className="randomchar__btns">
-					<a href={homepage} className="button button__main">
-						<div className="inner">homepage</div>
-					</a>
-					<a href={wiki} className="button button__secondary">
-						<div className="inner">Wiki</div>
-					</a>
-				</div>
-			</div>
-		</div>
-	);
-};
-export default RandomChar;
