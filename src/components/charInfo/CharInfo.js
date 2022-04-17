@@ -1,78 +1,50 @@
 import './charInfo.scss';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
-import MarvelService from '../../services/MarvelService';
+import {useEffect, useState} from 'react';
 import Skeleton from '../skeleton/Skeleton';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
+import useMarvelService from '../../services/MarvelService';
 
-class CharInfo extends Component {
-	state = {
-		charInfo: null,
-		loading: false,
-		error: false
-	};
+const CharInfo = ({charId}) => {
+	const [charInfo, setCharInfo] = useState(null);
 
-	marvelService = new MarvelService();
+	const {loading, getCharacter, error, clearError} = useMarvelService();
 
-	componentDidMount() {
-		this.updateChar();
-	}
+	useEffect(() => {
+		updateChar();
+	}, []);
 
-	componentDidUpdate(prevProps) {
-		if (this.props.charId !== prevProps.charId) {
-			this.updateChar();
-		}
-	}
+	useEffect(() => {
+		updateChar();
+	}, [charId]);
 
-	updateChar = () => {
-		const {charId} = this.props;
+	const updateChar = () => {
 		if (!charId) return;
 
-		this.onCharInfoLoading();
-
-		this.marvelService
-			.getCharacter(charId)
-			.then(this.onCharInfoLoaded)
-			.catch(this.onError);
+		clearError();
+		getCharacter(charId)
+			.then(onCharInfoLoaded);
 	};
 
-	onCharInfoLoading = () => {
-		this.setState({
-			loading: true
-		});
+	const onCharInfoLoaded = (charInfo) => {
+		setCharInfo(charInfo);
 	};
 
-	onCharInfoLoaded = (charInfo) => {
-		this.setState({
-			loading: false,
-			charInfo
-		});
-	};
+	const skeleton = charInfo || loading || error ? null : <Skeleton/>;
+	const errorMessage = error ? <ErrorMessage/> : null;
+	const spinner = loading ? <Spinner/> : null;
+	const content = !(loading || error || !charInfo) ? <View char={charInfo}/> : null;
 
-	onError = () => {
-		this.setState({
-			error: true
-		});
-	};
 
-	render() {
-		const {charInfo, loading, error} = this.state;
-
-		const skeleton = charInfo || loading || error ? null : <Skeleton/>;
-		const errorMessage = error ? <ErrorMessage/> : null;
-		const spinner = loading ? <Spinner/> : null;
-		const content = !(loading || error || !charInfo) ? <View char={charInfo}/> : null;
-
-		return (
-			<div className="char__info">
-				{skeleton}
-				{errorMessage}
-				{spinner}
-				{content}
-			</div>
-		);
-	}
+	return (
+		<div className="char__info">
+			{skeleton}
+			{errorMessage}
+			{spinner}
+			{content}
+		</div>
+	);
 };
 
 const View = ({char}) => {
@@ -123,6 +95,76 @@ const View = ({char}) => {
 
 CharInfo.propTypes = {
 	charId: PropTypes.number
-}
+};
 
 export default CharInfo;
+
+
+// class CharInfo extends Component {
+// 	state = {
+// 		charInfo: null,
+// 		loading: false,
+// 		error: false
+// 	};
+//
+// 	marvelService = new MarvelService();
+//
+// 	componentDidMount() {
+// 		this.updateChar();
+// 	}
+//
+// 	componentDidUpdate(prevProps) {
+// 		if (this.props.charId !== prevProps.charId) {
+// 			this.updateChar();
+// 		}
+// 	}
+//
+// 	updateChar = () => {
+// 		const {charId} = this.props;
+// 		if (!charId) return;
+//
+// 		this.onCharInfoLoading();
+//
+// 		this.marvelService
+// 			.getCharacter(charId)
+// 			.then(this.onCharInfoLoaded)
+// 			.catch(this.onError);
+// 	};
+//
+// 	onCharInfoLoading = () => {
+// 		this.setState({
+// 			loading: true
+// 		});
+// 	};
+//
+// 	onCharInfoLoaded = (charInfo) => {
+// 		this.setState({
+// 			loading: false,
+// 			charInfo
+// 		});
+// 	};
+//
+// 	onError = () => {
+// 		this.setState({
+// 			error: true
+// 		});
+// 	};
+//
+// 	render() {
+// 		const {charInfo, loading, error} = this.state;
+//
+// 		const skeleton = charInfo || loading || error ? null : <Skeleton/>;
+// 		const errorMessage = error ? <ErrorMessage/> : null;
+// 		const spinner = loading ? <Spinner/> : null;
+// 		const content = !(loading || error || !charInfo) ? <View char={charInfo}/> : null;
+//
+// 		return (
+// 			<div className="char__info">
+// 				{skeleton}
+// 				{errorMessage}
+// 				{spinner}
+// 				{content}
+// 			</div>
+// 		);
+// 	}
+// };
