@@ -2,7 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c7f3b48-b1f5-45e3-af67-0dfbfaf43e4c" name="Changes" comment="Add dynamic imports">
+      <change afterPath="$PROJECT_DIR$/src/components/CharSearchForm/CharSearchForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CharSearchForm/charSearchForm.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/SingleCharacterLayout/SingleCharacterLayout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/SingleCharacterLayout/SingleCharacterLayout.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/SinglePage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/pages/singleComicLayout/SingleComicLayout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/charInfo/CharInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/charInfo/CharInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/404.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/404.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/ComicsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ComicsPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/MainPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/SingleComicsPage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/singleComicPage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/singleComicLayout/SingleComicLayout.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/MarvelService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/MarvelService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +30,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="SCSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -31,7 +50,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="27Z2Fd7JKkODaTel7v1pJP0lGdm" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -40,13 +61,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../react-memo-practice" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/pages/singleComicLayout" />
+      <recent name="$PROJECT_DIR$/src/components/CharSearchForm" />
       <recent name="$PROJECT_DIR$/src/components/errorMessage" />
     </key>
   </component>
@@ -63,6 +87,13 @@
       <workItem from="1649663514148" duration="11708000" />
       <workItem from="1649683472264" duration="3989000" />
       <workItem from="1650205985801" duration="35000" />
+      <workItem from="1650223500798" duration="23000" />
+      <workItem from="1650387316739" duration="600000" />
+      <workItem from="1650438269783" duration="131000" />
+      <workItem from="1650532850472" duration="2744000" />
+      <workItem from="1650544615944" duration="8299000" />
+      <workItem from="1650609336979" duration="3273000" />
+      <workItem from="1650612628132" duration="4220000" />
     </task>
     <task id="LOCAL-00001" summary="Add dynamic imports">
       <created>1650182679795</created>

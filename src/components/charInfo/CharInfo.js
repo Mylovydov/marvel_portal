@@ -36,7 +36,6 @@ const CharInfo = ({charId}) => {
 	const spinner = loading ? <Spinner/> : null;
 	const content = !(loading || error || !charInfo) ? <View char={charInfo}/> : null;
 
-
 	return (
 		<div className="char__info">
 			{skeleton}
