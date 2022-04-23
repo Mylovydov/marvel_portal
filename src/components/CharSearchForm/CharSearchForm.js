@@ -7,24 +7,41 @@ import {Link} from 'react-router-dom';
 
 import './charSearchForm.scss';
 import ErrorMessage from '../errorMessage/ErrorMessage';
+import Spinner from '../spinner/Spinner';
+
+const setContent = (process, Found, NotFound, data) => {
+	switch (process) {
+		case 'waiting':
+			return null;
+		case 'loading':
+			return null;
+		case 'confirmed':
+			return data.length > 0 ? <Found data={data[0]}/> : <NotFound/>;
+		case 'error':
+			return <div className="char__search-critical-error"><ErrorMessage/></div>;
+		default:
+			throw new Error('Unexpected process state');
+	}
+};
 
 const CharSearchForm = () => {
 	const [char, setChar] = useState(null);
-	const {loading, error, getCharacterByName, clearError} = useMarvelService();
+	const {getCharacterByName, clearError, process, setProcess} = useMarvelService();
 
 	const onCharLoaded = (char) => {
-		console.log('char', char);
 		setChar(char);
 	};
 
+	console.log('char', char);
+	console.log('!char', !char);
 	const updateChar = (name) => {
 		clearError();
 
 		getCharacterByName(name)
-			.then(onCharLoaded);
+			.then(onCharLoaded)
+			.then(() => setProcess('confirmed'));
 	};
 
-	const errorMessage = error ? <div className="char__search-critical-error"><ErrorMessage/></div> : null;
 	const results = !char ? null : char.length > 0 ?
 		<div className="char__search-wrapper">
 			<div className="char__search-success">There is! Visit {char[0].name} page?</div>
@@ -61,15 +78,35 @@ const CharSearchForm = () => {
 						<button
 							type="submit"
 							className="button button__main"
-							disabled={loading}>
+							disabled={process === 'loading'}>
 							<div className="inner">find</div>
 						</button>
 					</div>
 					<FormikErrorMessage component="div" className="char__search-error" name="charName"/>
 				</Form>
 			</Formik>
-			{errorMessage}
-			{results}
+
+			{setContent(process, charFounded, charNotFound, char)}
+		</div>
+	);
+};
+
+const charFounded = ({data}) => {
+	const {name, id} = data;
+	return (
+		<div className="char__search-wrapper">
+			<div className="char__search-success">There is! Visit {name} page?</div>
+			<Link to={`/characters/${id}`} className="button button__secondary">
+				<div className="inner">To page</div>
+			</Link>
+		</div>
+	);
+};
+
+const charNotFound = () => {
+	return (
+		<div className="char__search-error">
+			The character was not found. Check the name and try again
 		</div>
 	);
 };

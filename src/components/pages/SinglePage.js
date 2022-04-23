@@ -5,11 +5,27 @@ import {useParams} from 'react-router-dom';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 
+const setContent = (process, Component, data) => {
+	switch (process) {
+		case 'waiting':
+			return <Spinner/>;
+		case 'loading':
+			return <Spinner/>;
+		case 'confirmed':
+			return <Component data={data}/>;
+		case 'error':
+			return <ErrorMessage/>;
+		default:
+			throw new Error('Unexpected process state');
+	}
+};
+
 const SinglePage = ({Component, dataType}) => {
 	const {id} = useParams();
 	const [data, setData] = useState(null);
-	const {getComic, loading, error, clearError, getCharacter} = useMarvelService();
 
+	const {getComic, clearError, getCharacter, process, setProcess} = useMarvelService();
+	console.log(id);
 	useEffect(() => {
 		updateData();
 	}, [id]);
@@ -19,10 +35,10 @@ const SinglePage = ({Component, dataType}) => {
 
 		switch (dataType) {
 			case 'comic':
-				getComic(id).then(onDataLoaded);
+				getComic(id).then(onDataLoaded).then(() => setProcess('confirmed'));
 				break;
 			case 'character':
-				getCharacter(id).then(onDataLoaded);
+				getCharacter(id).then(onDataLoaded).then(() => setProcess('confirmed'));
 				break;
 		}
 	};
@@ -33,16 +49,10 @@ const SinglePage = ({Component, dataType}) => {
 		setData(info);
 	};
 
-	const spinner = loading ? <Spinner/> : null;
-	const errorMessage = error ? <ErrorMessage/> : null;
-	const comicItem = !(error || loading || !data) ? <Component data={data}/> : null;
-
 	return (
 		<>
 			<AppBanner/>
-			{spinner}
-			{errorMessage}
-			{comicItem}
+			{setContent(process, Component, data)}
 		</>
 	);
 };

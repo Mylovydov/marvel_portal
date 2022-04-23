@@ -1,8 +1,23 @@
 import './charList.scss';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
+
+const setContent = (process, Component, newItemLoading) => {
+	switch (process) {
+		case 'waiting':
+			return <Spinner/>;
+		case 'loading':
+			return newItemLoading ? <Component/> : <Spinner/>;
+		case 'confirmed':
+			return <Component/>;
+		case 'error':
+			return <ErrorMessage/>;
+		default:
+			throw new Error('Unexpected process state');
+	}
+};
 
 const CharList = ({onCharSelected}) => {
 	const [charList, setCharList] = useState([]);
@@ -10,16 +25,17 @@ const CharList = ({onCharSelected}) => {
 	const [offset, setOffset] = useState(220);
 	const [charEnded, setCharEnded] = useState(false);
 
-	const {loading, getAllCharacters, error} = useMarvelService();
+	const {getAllCharacters, process, setProcess} = useMarvelService();
 
 	useEffect(() => {
 		onRequest(offset, true);
 	}, []);
 
-	const onRequest = (offfset, initial) => {
+	const onRequest = (offset, initial) => {
 		initial ? setNewItemLoading(false) : setNewItemLoading(true);
-		getAllCharacters(offfset)
-			.then(onCharListLoaded);
+		getAllCharacters(offset)
+			.then(onCharListLoaded)
+			.then(() => setProcess('confirmed'));
 	};
 
 	const onCharListLoaded = (newCharList) => {
@@ -83,21 +99,18 @@ const CharList = ({onCharSelected}) => {
 		);
 	};
 
-	const items = renderItems(charList);
-
-	const errorMessage = error ? <ErrorMessage/> : null;
-	const spinner = loading && !newItemLoading ? <Spinner/> : null;
+	const elements = useMemo(() => {
+		return setContent(process, () => renderItems(charList), newItemLoading)
+	}, [process])
 
 	return (
 		<div className="char__list">
-			{spinner}
-			{errorMessage}
-			{items}
+			{elements}
 			<button
 				className="button button__main button__long"
 				onClick={() => onRequest(offset)}
 				disabled={newItemLoading}
-				style={{display: charEnded || loading ? 'none' : 'block'}}
+				style={{display: charEnded ? 'none' : 'block'}}
 			>
 				<div className="inner">
 					load more
