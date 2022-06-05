@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5c7f3b48-b1f5-45e3-af67-0dfbfaf43e4c" name="Changes" comment="Project done!">
-      <change afterPath="$PROJECT_DIR$/src/utils/setContent.js" afterDir="false" />
+    <list default="true" id="5c7f3b48-b1f5-45e3-af67-0dfbfaf43e4c" name="Changes" comment="Fixed bags&#10;&#10;Project done!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CharSearchForm/CharSearchForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CharSearchForm/CharSearchForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/charInfo/CharInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/charInfo/CharInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/charList/CharList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/charList/CharList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/charList/someFunc.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/comicsList/ComicsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/comicsList/ComicsList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/SinglePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/SinglePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/randomChar/RandomChar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/randomChar/RandomChar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/http.hook.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/http.hook.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/MarvelService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/MarvelService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,16 +41,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="list.type.of.created.stylesheet" value="SCSS" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/denys/Documents/learning projects/minin-mern",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/components/pages/singleComicLayout" />
@@ -87,7 +79,8 @@
       <workItem from="1650609336979" duration="3273000" />
       <workItem from="1650612628132" duration="15959000" />
       <workItem from="1650641336918" duration="1750000" />
-      <workItem from="1650704923704" duration="1397000" />
+      <workItem from="1650704923704" duration="1907000" />
+      <workItem from="1652035036402" duration="656000" />
     </task>
     <task id="LOCAL-00001" summary="Add dynamic imports">
       <created>1650182679795</created>
@@ -103,7 +96,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650621748680</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fixed bags&#10;&#10;Project done!">
+      <created>1650718451429</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1650718451429</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +123,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add dynamic imports" />
     <MESSAGE value="Project done!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project done!" />
+    <MESSAGE value="Fixed bags&#10;&#10;Project done!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bags&#10;&#10;Project done!" />
   </component>
 </project>
