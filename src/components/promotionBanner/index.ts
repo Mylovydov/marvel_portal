@@ -1,1 +1,2 @@
-export { default as AppBanner } from './PromotionBanner'
+export { default as PromotionBanner } from './PromotionBanner'
+export * from './promotionBanner.interface'

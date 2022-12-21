@@ -3,8 +3,8 @@ import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { ICharListProps } from './charList.interface'
 import { ICharacter } from '../../interfaces/character.interface'
 import useMarvelService from '../../services/MarvelService'
-import ErrorMessage from '../errorMessage/ErrorMessage'
-import Spinner from '../spinner/Spinner'
+import { ErrorMessage } from '../errorMessage'
+import { Spinner } from '../spinner'
 
 const CharList = (props: ICharListProps) => {
 	const { isLoading, error, getAllCharacters } = useMarvelService()

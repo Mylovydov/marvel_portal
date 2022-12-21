@@ -1,7 +1,7 @@
 import React from 'react'
-import AppHeader from '../appHeader/AppHeader'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ComicsPage, MainPage } from '../pages'
+import { AppHeader } from '../appHeader'
 
 const MarvelApp = () => {
 	return (

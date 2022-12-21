@@ -2,7 +2,6 @@
 
 .comics-page {
   &__header {
-
   }
 
   &__body {
@@ -21,62 +20,5 @@
   column-gap: 55px;
 
   &__comics {
-  }
-}
-
-.comic {
-  display: flex;
-  flex-direction: column;
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 5px 20px $main-color;
-    transform: translateY(-8px);
-  }
-
-  &__img {
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
-    position: relative;
-    padding-bottom: 150.5%;
-    transition: transform .2s ease-in;
-
-    &:hover {
-      transform: translateY(-8px)
-    }
-
-    &-selected {
-      box-shadow: 0 5px 20px $main-color;
-      transform: translateY(-8px);
-      outline-offset: 0;
-    }
-
-    &:focus-visible {
-      outline: none;
-    }
-
-    > img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  &__title {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: (20 / 14) * 100%;
-    color: #000000;
-    margin-top: 15px;
-  }
-
-  &__price {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: (20 / 14) * 100%;
-    color: #666;
-    margin-top: 5px;
   }
 }

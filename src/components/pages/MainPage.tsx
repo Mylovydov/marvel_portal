@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
-import ErrorBoundary from '../errorBoundary/ErrorBoundary'
-import RandomChar from '../randomChar/RandomChar'
-import CharList from '../charList/CharList'
-import CharInfo from '../charInfo/CharInfo'
+import { ErrorBoundary } from '../errorBoundary'
+import { RandomChar } from '../randomChar'
 import decoration from '../../resources/img/vision.png'
+import { CharInfo } from '../charInfo'
+import { CharList } from '../charList'
 
 const MainPage: FC = () => {
 	const [selectedCharId, setSelectedCharId] = useState<number | null>(null)

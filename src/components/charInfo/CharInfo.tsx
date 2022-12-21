@@ -3,9 +3,9 @@ import { CSSProperties, useEffect, useState } from 'react'
 import { ICharInfoProps, IViewProps } from './charInfo.interface'
 import { ICharacter, ICharComics } from '../../interfaces/character.interface'
 import useMarvelService from '../../services/MarvelService'
-import Skeleton from '../skeleton/Skeleton'
-import ErrorMessage from '../errorMessage/ErrorMessage'
-import Spinner from '../spinner/Spinner'
+import { Skeleton } from '../skeleton'
+import { ErrorMessage } from '../errorMessage'
+import { Spinner } from '../spinner'
 
 const CharInfo = (props: ICharInfoProps) => {
 	const { isLoading, error, getCharacter, clearError } = useMarvelService()

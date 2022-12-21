@@ -1,12 +1,13 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
-import ErrorBoundary from '../errorBoundary/ErrorBoundary'
-import PromotionBanner from '../promotionBanner/PromotionBanner'
+import React, { FC, useEffect, useState } from 'react'
+import { PromotionBanner } from '../promotionBanner'
 import avengers from '../../resources/img/Avengers.png'
 import logo from '../../resources/img/Avengers_logo.png'
 import useMarvelService from '../../services/MarvelService'
 import { IComic } from '../../interfaces/character.interface'
-import ErrorMessage from '../errorMessage/ErrorMessage'
-import Spinner from '../spinner/Spinner'
+import { ErrorMessage } from '../errorMessage'
+import { Spinner } from '../spinner'
+import { ComicsList } from '../comicsList'
+import { ErrorBoundary } from '../errorBoundary'
 
 const ComicsPage: FC = () => {
 	const { getAllComics, isLoading, error } = useMarvelService()
@@ -29,50 +30,9 @@ const ComicsPage: FC = () => {
 		onRequest()
 	}, [])
 
-	const comicsRefs = useRef<HTMLAnchorElement[]>([])
-
-	const setFocusOnSelectedComic = (id: number) => {
-		const selectedComic = comicsRefs.current[id]
-		selectedComic.classList.add('comic__img-selected')
-		selectedComic.focus()
-	}
-
-	const removeFocusOnSelectedComic = (id: number) => {
-		const selectedComic = comicsRefs.current[id]
-		selectedComic.classList.remove('comic__img-selected')
-	}
-
-	const renderComics = (comics: IComic[]) =>
-		comics.map(({ price, title, uri, image, id }: IComic, i) => (
-			<li key={id} className="comics-list__comic">
-				<div className="comic">
-					<a
-						href="#"
-						// href={uri}
-						// target="_blank"
-						className="comic__img"
-						ref={el => (el ? (comicsRefs.current[i] = el) : undefined)}
-						onKeyDown={(e: React.KeyboardEvent<HTMLAnchorElement>) => {
-							if (e.code === 'Enter' || e.code === 'Space') {
-								e.preventDefault()
-							}
-						}}
-						onFocus={() => setFocusOnSelectedComic(i)}
-						onBlur={() => removeFocusOnSelectedComic(i)}
-					>
-						<img src={image} alt={title} />
-					</a>
-					<div className="comic__title">{title}</div>
-					<div className="comic__price">{price}</div>
-				</div>
-			</li>
-		))
-
-	const comicsItems = renderComics(comicsList)
-
 	const errorMessage = error && <ErrorMessage />
 	const spinner = isInitialLoading && !error && <Spinner />
-	const content = !(isLoading && error) && comicsItems
+	const content = !(isLoading && error) && <ComicsList comics={comicsList} />
 
 	return (
 		<ErrorBoundary>
@@ -84,7 +44,11 @@ const ComicsPage: FC = () => {
 						text="New comics every week! Stay tuned!"
 					/>
 				</div>
-				<div className="comics-page__body"></div>
+				<div className="comics-page__body">
+					{errorMessage}
+					{spinner}
+					{content}
+				</div>
 				<div className="comics-page__action">
 					<button
 						onClick={() => onRequest(offset)}
@@ -95,7 +59,6 @@ const ComicsPage: FC = () => {
 					</button>
 				</div>
 			</section>
-			{/*<ComicsList1 />*/}
 		</ErrorBoundary>
 	)
 }

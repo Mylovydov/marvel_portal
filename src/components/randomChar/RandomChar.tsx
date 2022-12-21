@@ -4,7 +4,7 @@ import { CSSProperties, useEffect, useState } from 'react'
 import useMarvelService from '../../services/MarvelService'
 import { ICharacter } from '../../interfaces/character.interface'
 import Spinner from '../spinner/Spinner'
-import ErrorMessage from '../errorMessage/ErrorMessage'
+import { ErrorMessage } from '../errorMessage'
 
 const ViewBox = ({ char }: { char: ICharacter }) => {
 	const { name, description, homepage, thumbnail, wiki } = char
