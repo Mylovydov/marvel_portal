@@ -1,0 +1,53 @@
+@import '../../style/variables.scss';
+
+.promotion-banner {
+  display: flex;
+  align-items: center;
+  background: #232222;
+  min-height: 100px;
+  padding: 0 25px 0 45px;
+
+  &__img {
+    position: relative;
+    flex-basis: 152px;
+    min-height: 100px;
+    overflow: hidden;
+    padding-bottom: 9.1%;
+
+    > img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  &__content {
+    flex-basis: 235px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: (35 / 24) * 100%;
+    color: #FFFFFF;
+    margin: 0 0 0 80px;
+  }
+
+  &__logo {
+    position: relative;
+    flex-basis: 133px;
+    min-height: 100px;
+    overflow: hidden;
+    padding-bottom: 9.1%;
+    margin-left: auto;
+
+    > img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+    }
+  }
+}

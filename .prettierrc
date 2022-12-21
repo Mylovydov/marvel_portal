@@ -1,0 +1,26 @@
+{
+  "singleQuote": true,
+  "trailingComma": "none",
+  "useTabs": true,
+  "jsxSingleQuote": false,
+  "semi": false,
+  "arrowParens": "avoid",
+  "tabWidth": 2,
+  "printWidth": 100,
+  "importOrdered": [
+    "<THIRD_PARTY_MODULES>",
+    "^@/components/(.*)$",
+    "^@/providers/(.*)$",
+    "^@/services/(.*)$",
+    "^@/assets/(.*)$",
+    "^@/types/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/store/(.*)$",
+    "^@/utils/(.*)$",
+    "^../(.*)",
+    "^./(.*)",
+    "(.scss)$"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
