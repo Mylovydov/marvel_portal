@@ -1,7 +1,8 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { ComicsPage, MainPage } from '../pages'
 import { AppHeader } from '../appHeader'
+import Page404 from '../pages/404'
 
 const MarvelApp = () => {
 	return (
@@ -9,10 +10,11 @@ const MarvelApp = () => {
 			<div className="app">
 				<AppHeader />
 				<main>
-					<Switch>
-						<Route exact path="/" component={MainPage} />
-						<Route exact path="/comics" component={ComicsPage} />
-					</Switch>
+					<Routes>
+						<Route path="/" element={<MainPage />} />
+						<Route path="/comics" element={<ComicsPage />} />
+						<Route path="*" element={<Page404 />} />
+					</Routes>
 				</main>
 			</div>
 		</Router>

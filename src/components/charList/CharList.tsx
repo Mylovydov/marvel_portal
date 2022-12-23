@@ -47,7 +47,8 @@ const CharList = (props: ICharListProps) => {
 	const renderCharacters = (chars: ICharacter[]) => {
 		const items = chars.map((char, i) => {
 			const imgStyle: CSSProperties = {
-				objectFit: `${char.thumbnail.includes('image_not_available') ? 'fill' : 'cover'}`
+				objectFit: `${char.thumbnail.includes('image_not_available') ? 'fill' : 'cover'}`,
+				maxWidth: 'initial'
 			}
 
 			return (

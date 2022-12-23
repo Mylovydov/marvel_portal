@@ -101,4 +101,13 @@
   &:hover {
     transform: translateY(-5px);
   }
+
+  &:disabled {
+    &.button__main::before, &.button__main::after, & .inner  {
+      background-color: darken($main-color, 5);
+    }
+    & .inner::before, .inner::after {
+      border-color: darken($main-color, 5) transparent;
+    }
+  }
 }
