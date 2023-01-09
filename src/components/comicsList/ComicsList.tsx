@@ -20,7 +20,7 @@ const ComicsList = ({ comics }: IComicsListProps) => {
 	return (
 		<ul className="comics-list">
 			{comics.map((comic, i) => (
-				<li key={comic.id} className="comics-list__comic">
+				<li key={i} className="comics-list__comic">
 					<Comic
 						comic={comic}
 						onFocus={() => setFocusOnSelectedComic(i)}

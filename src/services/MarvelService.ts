@@ -1,23 +1,11 @@
 import { ICharacter, IComic } from '../interfaces/character.interface'
 import useHttp from '../hooks/useHttp'
+import { IUseMarvelService } from './marvelService.interface'
 
 const _apiBase = 'https://gateway.marvel.com:443/v1/public/'
 const _apiKey = 'apikey=d423d5fe13c364f3025f9ffe33f5eef1'
 const _baseOffset = 210
-const _baseComicsOffset = 200
-
-interface IUseMarvelService {
-	isLoading: boolean
-	error: string | null
-
-	getCharacter(id: number): Promise<ICharacter>
-
-	getAllCharacters(offset?: number): Promise<ICharacter[]>
-
-	getAllComics(offset?: number): Promise<IComic[]>
-
-	clearError(): void
-}
+const _baseComicsOffset = 0
 
 const useMarvelService = (): IUseMarvelService => {
 	const { isLoading, request, error, clearError } = useHttp()
@@ -53,9 +41,13 @@ const useMarvelService = (): IUseMarvelService => {
 	const transformComic = (comic: any): IComic => ({
 		id: comic.id,
 		image: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
-		uri: comic.resourceURI,
 		title: comic.title.toLocaleUpperCase(),
-		price: comic?.prices?.[0]?.price ? comic.prices[0].price + '$' : 'NOT AVAILABLE'
+		price: comic?.prices?.[0]?.price ? comic.prices[0].price + '$' : 'Not available',
+		description: comic.description || `No description for this comic`,
+		pageCount: comic.pageCount
+			? `${comic.pageCount} p.`
+			: 'No information about the number of pages',
+		language: comic.textObjects.language || `en-us`
 	})
 
 	const getAllCharacters = async (offset: number = _baseOffset): Promise<ICharacter[]> => {
@@ -71,6 +63,13 @@ const useMarvelService = (): IUseMarvelService => {
 		return transformCharacter(character.data.results[0])
 	}
 
+	const getComic = async (id: string): Promise<IComic> => {
+		const character = await request({
+			url: `${_apiBase}comics/${id}?${_apiKey}`
+		})
+		return transformComic(character.data.results[0])
+	}
+
 	const getAllComics = async (offset = _baseComicsOffset): Promise<IComic[]> => {
 		const comics = await request({
 			url: `${_apiBase}comics?limit=8&offset=${offset}&${_apiKey}`
@@ -84,7 +83,8 @@ const useMarvelService = (): IUseMarvelService => {
 		clearError,
 		getCharacter,
 		getAllCharacters,
-		getAllComics
+		getAllComics,
+		getComic
 	}
 }
 

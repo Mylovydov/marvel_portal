@@ -23,7 +23,6 @@ const AppHeader = () => {
 					/
 					<li>
 						<NavLink
-							end
 							className={({ isActive }) => (isActive ? 'app__menu-active' : undefined)}
 							to="/comics"
 						>

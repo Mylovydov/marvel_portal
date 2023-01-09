@@ -17,5 +17,7 @@ export interface IComic {
 	image: string
 	title: string
 	price: number | string
-	uri: string
+	description: string
+	pageCount: string
+	language: string
 }

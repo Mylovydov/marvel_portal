@@ -1,15 +1,17 @@
 import React from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { ErrorMessage } from '../errorMessage'
 
 const Page404 = () => {
 	const location = useLocation()
-	console.log(location)
 	return (
-		<>
-			{' '}
-			<h3>{`Path "${location.pathname}" is not found`}</h3>
-			<NavLink to="..">Back</NavLink>
-		</>
+		<div style={{ textAlign: 'center' }}>
+			<ErrorMessage />
+			<h3 style={{ marginTop: 30 }}>{`Path "${location.pathname}" is not found`}</h3>
+			<Link style={{ marginTop: 30 }} to="..">
+				Back
+			</Link>
+		</div>
 	)
 }
 
