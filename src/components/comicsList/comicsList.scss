@@ -1,18 +1,5 @@
 @import '../../style/variables.scss';
 
-.comics-page {
-  &__header {
-  }
-
-  &__body {
-    margin: 45px 0 0 0;
-  }
-
-  &__action {
-    margin: 45px 0 0 0;
-  }
-}
-
 .comics-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));

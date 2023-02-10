@@ -10,6 +10,7 @@ export interface ICharacter {
 
 export interface ICharComics {
 	comicsName: string
+	id: string | null
 }
 
 export interface IComic {
@@ -20,4 +21,9 @@ export interface IComic {
 	description: string
 	pageCount: string
 	language: string
+}
+
+export interface IComicsData {
+	resourceURI: string
+	name: string
 }

@@ -4,6 +4,7 @@ import { RandomChar } from '../randomChar'
 import decoration from '../../resources/img/vision.png'
 import { CharInfo } from '../charInfo'
 import { CharList } from '../charList'
+import SearchForm from '../searchForm/SearchForm'
 
 const MainPage: FC = () => {
 	const [selectedCharId, setSelectedCharId] = useState<number | null>(null)
@@ -11,18 +12,24 @@ const MainPage: FC = () => {
 	const onCharSelected = (id: number) => {
 		setSelectedCharId(id)
 	}
+
 	return (
 		<>
 			<ErrorBoundary>
 				<RandomChar />
 			</ErrorBoundary>
 			<div className="char__content">
-				<ErrorBoundary>
-					<CharList onCharSelected={onCharSelected} />
-				</ErrorBoundary>
-				<ErrorBoundary>
-					<CharInfo selectedCharId={selectedCharId} />
-				</ErrorBoundary>
+				<div className="content__list">
+					<ErrorBoundary>
+						<CharList onCharSelected={onCharSelected} />
+					</ErrorBoundary>
+				</div>
+				<div className="content__info">
+					<ErrorBoundary>
+						<CharInfo selectedCharId={selectedCharId} />
+					</ErrorBoundary>
+					<SearchForm />
+				</div>
 			</div>
 			<img className="bg-decoration" src={decoration} alt="vision" />
 		</>

@@ -6,6 +6,7 @@ import useMarvelService from '../../services/MarvelService'
 import { Skeleton } from '../skeleton'
 import { ErrorMessage } from '../errorMessage'
 import { Spinner } from '../spinner'
+import { Link } from 'react-router-dom'
 
 const CharInfo = (props: ICharInfoProps) => {
 	const { isLoading, error, getCharacter, clearError } = useMarvelService()
@@ -54,13 +55,19 @@ const View = ({ char }: IViewProps) => {
 	const comicsItems = comics.length
 		? comics.map((comicsItem: ICharComics, i: number) => (
 				<li className="char__comics-item" key={i}>
-					{comicsItem.comicsName}
+					{comicsItem.id ? (
+						<Link to={`/comics/${comicsItem.id}`}>{comicsItem.comicsName}</Link>
+					) : (
+						comicsItem.comicsName
+					)}
 				</li>
 		  ))
 		: 'No available comics'
 
 	const imgStyle: CSSProperties = {
-		objectFit: `${thumbnail.includes('image_not_available') ? 'contain' : 'cover'}`
+		objectFit: `${
+			thumbnail.includes('image_not_available') ? 'contain' : 'cover'
+		}`
 	}
 
 	return (
@@ -79,7 +86,7 @@ const View = ({ char }: IViewProps) => {
 					</div>
 				</div>
 			</div>
-			<div className="char__descr">{description}</div>
+			<div className="char__descr">{`${description.slice(0, 210)}...`}</div>
 			<div className="char__comics">Comics:</div>
 			<ul className="char__comics-list">{comicsItems}</ul>
 		</>

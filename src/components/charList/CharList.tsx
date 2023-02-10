@@ -81,7 +81,7 @@ const CharList = (props: ICharListProps) => {
 	const charItems = renderCharacters(charList)
 
 	const errorMessage = error && <ErrorMessage />
-	const spinner = isLoading && <Spinner />
+	const spinner = isInitialLoading && <Spinner />
 	const content = !(isInitialLoading || error) && charItems
 
 	return (

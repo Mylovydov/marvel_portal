@@ -6,7 +6,7 @@
   "semi": false,
   "arrowParens": "avoid",
   "tabWidth": 2,
-  "printWidth": 100,
+  "printWidth": 80,
   "importOrdered": [
     "<THIRD_PARTY_MODULES>",
     "^@/components/(.*)$",

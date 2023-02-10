@@ -4,7 +4,7 @@ import { IAppBannerProps } from './promotionBanner.interface'
 
 const PromotionBanner = ({ startImg, endImg, text }: IAppBannerProps) => {
 	return (
-		<div className="promotion-banner">
+		<section className="promotion-banner">
 			<div className="promotion-banner__img">
 				<img src={startImg} alt="" />
 			</div>
@@ -12,7 +12,7 @@ const PromotionBanner = ({ startImg, endImg, text }: IAppBannerProps) => {
 			<div className="promotion-banner__logo">
 				<img src={endImg} alt="" />
 			</div>
-		</div>
+		</section>
 	)
 }
 

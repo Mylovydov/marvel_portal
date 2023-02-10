@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { IRequestData } from './hooks.interface'
+import { IRequestData } from './useHttp.interface'
 
 const useHttp = () => {
 	const [isLoading, setIsLoading] = useState(false)

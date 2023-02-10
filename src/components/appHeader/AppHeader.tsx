@@ -13,8 +13,9 @@ const AppHeader = () => {
 				<ul>
 					<li>
 						<NavLink
-							end
-							className={({ isActive }) => (isActive ? 'app__menu-active' : undefined)}
+							className={({ isActive }) =>
+								isActive ? 'app__menu-active' : undefined
+							}
 							to="/"
 						>
 							Characters
@@ -23,7 +24,9 @@ const AppHeader = () => {
 					/
 					<li>
 						<NavLink
-							className={({ isActive }) => (isActive ? 'app__menu-active' : undefined)}
+							className={({ isActive }) =>
+								isActive ? 'app__menu-active' : undefined
+							}
 							to="/comics"
 						>
 							Comics

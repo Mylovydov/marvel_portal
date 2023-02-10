@@ -1,13 +1,11 @@
 import React, { FC, useEffect, useState } from 'react'
-import { PromotionBanner } from '../promotionBanner'
-import avengers from '../../resources/img/Avengers.png'
-import logo from '../../resources/img/Avengers_logo.png'
-import useMarvelService from '../../services/MarvelService'
-import { IComic } from '../../interfaces/character.interface'
-import { ErrorMessage } from '../errorMessage'
-import { Spinner } from '../spinner'
-import { ComicsList } from '../comicsList'
-import { ErrorBoundary } from '../errorBoundary'
+import useMarvelService from '../../../services/MarvelService'
+import { IComic } from '../../../interfaces/character.interface'
+import { ErrorMessage } from '../../errorMessage'
+import { Spinner } from '../../spinner'
+import { ComicsList } from '../../comicsList'
+import { ErrorBoundary } from '../../errorBoundary'
+import './comicsPage.scss'
 
 const ComicsPage: FC = () => {
 	const { getAllComics, isLoading, error } = useMarvelService()
@@ -37,13 +35,6 @@ const ComicsPage: FC = () => {
 	return (
 		<ErrorBoundary>
 			<section className="comics-page">
-				<div className="comics-page__header">
-					<PromotionBanner
-						startImg={avengers}
-						endImg={logo}
-						text="New comics every week! Stay tuned!"
-					/>
-				</div>
 				<div className="comics-page__body">
 					{errorMessage}
 					{spinner}
@@ -55,7 +46,9 @@ const ComicsPage: FC = () => {
 						disabled={isLoading || !!error}
 						className="button button__main button__long"
 					>
-						<div className="inner">{isLoading ? 'Loading...' : 'load more'}</div>
+						<div className="inner">
+							{isLoading ? 'Loading...' : 'load more'}
+						</div>
 					</button>
 				</div>
 			</section>
