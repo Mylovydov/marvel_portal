@@ -1,43 +1,20 @@
 import './charInfo.scss'
-import { CSSProperties, useEffect, useState } from 'react'
+import { CSSProperties } from 'react'
 import { ICharInfoProps, IViewProps } from './charInfo.interface'
-import { ICharacter, ICharComics } from '../../interfaces/character.interface'
-import useMarvelService from '../../services/marvelService/MarvelService'
+import { ICharComics } from '../../interfaces/character.interface'
 import { Skeleton } from '../skeleton'
 import { ErrorMessage } from '../errorMessage'
 import { Spinner } from '../spinner'
 import { Link } from 'react-router-dom'
+import useCharacter from '../../hooks/useCharacter'
 
-const CharInfo = (props: ICharInfoProps) => {
-	const { isLoading, error, getCharacter, clearError } = useMarvelService()
+const CharInfo = ({ selectedCharId }: ICharInfoProps) => {
+	const { isLoading, isError, data } = useCharacter(selectedCharId)
 
-	const [char, setChar] = useState<ICharacter | null>(null)
-
-	const { selectedCharId } = props
-
-	useEffect(() => {
-		onUpdateChar()
-	}, [])
-
-	useEffect(() => {
-		onUpdateChar()
-	}, [selectedCharId])
-
-	const onCharLoaded = (char: ICharacter) => {
-		setChar(char)
-	}
-
-	const onUpdateChar = () => {
-		clearError()
-		if (selectedCharId) {
-			getCharacter(selectedCharId).then(onCharLoaded)
-		}
-	}
-
-	const skeleton = !char && !error && !isLoading && <Skeleton />
-	const errorMessage = error && <ErrorMessage />
+	const skeleton = !data && !isError && !isLoading && <Skeleton />
+	const errorMessage = isError && <ErrorMessage />
 	const spinner = isLoading && <Spinner />
-	const content = !(error || isLoading || !char) && <View char={char} />
+	const content = !(isError || isLoading || !data) && <View char={data} />
 
 	return (
 		<div className="char__info">

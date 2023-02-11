@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useMarvelService from '../../services/marvelService/MarvelService'
 import { ICharacter, IComic } from '../../interfaces/character.interface'
-import { Spinner } from '../spinner'
-import { ErrorMessage } from '../errorMessage'
+import { Spinner } from '../../components/spinner'
+import { ErrorMessage } from '../../components/errorMessage'
 import IFetchFnType from './withFetchComicOrCharData.interface'
 
 function WithFetchComicOrCharData<T>(

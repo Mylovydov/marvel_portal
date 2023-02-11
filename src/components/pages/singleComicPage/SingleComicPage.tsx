@@ -1,7 +1,7 @@
 import './singleComicPage.scss'
 import { Link } from 'react-router-dom'
 import ISingleComicProps from './singleComicPage.interface'
-import WithFetchComicOrCharData from '../../withFetchComicOrCharData/WithFetchComicOrCharData'
+import WithFetchComicOrCharData from '../../../hoc/withFetchComicOrCharData/WithFetchComicOrCharData'
 
 const SingleComicPage = ({ item }: ISingleComicProps) => {
 	const { title, description, image, price, pageCount, language } = item

@@ -1,11 +1,11 @@
-import React, { lazy } from 'react'
+import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import SubpagesLayout from '../subpagesLayout/SubpagesLayout'
-import { SingleCharPage, SingleComicPage } from '../pages'
+import { ComicsPage, MainPage, Page404, SingleCharPage, SingleComicPage } from '../pages'
 
-const Page404 = lazy(() => import(`../pages/404`))
-const MainPage = lazy(() => import(`../pages/MainPage`))
-const ComicsPage = lazy(() => import(`../pages/comicsPage/ComicsPage`))
+// const Page404 = lazy(() => import(`../pages/404`))
+// const MainPage = lazy(() => import(`../pages/MainPage`))
+// const ComicsPage = lazy(() => import(`../pages/comicsPage/ComicsPage`))
 
 const MarvelRoutes = () => {
 	return (

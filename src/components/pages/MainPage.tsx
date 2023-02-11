@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useCallback, useState } from 'react'
 import { ErrorBoundary } from '../errorBoundary'
 import { RandomChar } from '../randomChar'
 import decoration from '../../resources/img/vision.png'
@@ -9,9 +9,9 @@ import SearchForm from '../searchForm/SearchForm'
 const MainPage: FC = () => {
 	const [selectedCharId, setSelectedCharId] = useState<number | null>(null)
 
-	const onCharSelected = (id: number) => {
+	const onCharSelected = useCallback((id: number) => {
 		setSelectedCharId(id)
-	}
+	}, [])
 
 	return (
 		<>

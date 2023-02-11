@@ -1,8 +1,15 @@
-import { Component, ErrorInfo } from 'react'
+import React, { Component, ErrorInfo } from 'react'
 import { ErrorMessage } from '../errorMessage'
-import { IErrorBoundaryProps, IErrorBoundaryState } from './errorBoundary.interface'
+import '../../style/button.scss'
+import {
+	IErrorBoundaryProps,
+	IErrorBoundaryState
+} from './errorBoundary.interface'
 
-class ErrorBoundary extends Component<IErrorBoundaryProps, IErrorBoundaryState> {
+class ErrorBoundary extends Component<
+	IErrorBoundaryProps,
+	IErrorBoundaryState
+> {
 	state: IErrorBoundaryState = {
 		isError: false
 	}

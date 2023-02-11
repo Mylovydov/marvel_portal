@@ -22,6 +22,7 @@ const useMarvelServiceForQuery = (): IUseMarvelService => {
 	}
 
 	const getCharacter = async (id: number | string): Promise<ICharacter> => {
+		console.log(`call-------------`, id)
 		const character = await request({
 			url: `${_apiBase}characters/${id}?${_apiKey}`
 		})

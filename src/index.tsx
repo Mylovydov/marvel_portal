@@ -10,10 +10,10 @@ const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-	<Router>
-		<QueryClientProvider client={queryClient}>
+	<QueryClientProvider client={queryClient}>
+		<Router>
 			<MarvelApp />
-			<ReactQueryDevtools initialIsOpen={false} position={'bottom-right'} />
-		</QueryClientProvider>
-	</Router>
+		</Router>
+		<ReactQueryDevtools initialIsOpen={false} position={'bottom-right'} />
+	</QueryClientProvider>
 )

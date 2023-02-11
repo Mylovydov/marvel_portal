@@ -1,7 +1,7 @@
 import './randomChar.scss'
-import { useState } from 'react'
-import Character from '../character/Character'
+import { useCallback, useState } from 'react'
 import Banner from '../banner/Banner'
+import Character from '../character/Character'
 
 const getRandomId = () => {
 	return Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
@@ -10,10 +10,10 @@ const getRandomId = () => {
 const RandomChar = () => {
 	const [charId, setCharId] = useState(getRandomId)
 
-	const setNewCharId = () => {
+	const setNewCharId = useCallback(() => {
 		const id = getRandomId()
 		setCharId(id)
-	}
+	}, [])
 
 	return (
 		<div className="randomchar">

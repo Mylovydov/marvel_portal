@@ -1,6 +1,5 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { AppHeader } from '../appHeader'
-import { Spinner } from '../spinner'
 import MarvelRoutes from '../marvelRoutes/MarvelRoutes'
 
 const MarvelApp = () => {
@@ -8,9 +7,7 @@ const MarvelApp = () => {
 		<div className="app">
 			<AppHeader />
 			<main>
-				<Suspense fallback={<Spinner />}>
-					<MarvelRoutes />
-				</Suspense>
+				<MarvelRoutes />
 			</main>
 		</div>
 	)

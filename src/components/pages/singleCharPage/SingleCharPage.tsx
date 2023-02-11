@@ -1,7 +1,7 @@
 import React from 'react'
 import './singleCharPage.scss'
 import SingleCharProps from './singleCharPage.interface'
-import WithFetchComicOrCharData from '../../withFetchComicOrCharData/WithFetchComicOrCharData'
+import WithFetchComicOrCharData from '../../../hoc/withFetchComicOrCharData/WithFetchComicOrCharData'
 
 const SingleCharPage = ({ item }: SingleCharProps) => {
 	const { name, thumbnail, description } = item

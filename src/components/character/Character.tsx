@@ -1,9 +1,9 @@
 import React, { CSSProperties } from 'react'
 import './character.scss'
-import useCharacter from '../../hooks/useCharacter'
-import { ErrorMessage } from '../errorMessage'
-import Spinner from '../spinner/Spinner'
 import ICharacterPropsType from './character.interface'
+import useCharacter from '../../hooks/useCharacter'
+import { Spinner } from '../spinner'
+import { ErrorMessage } from '../errorMessage'
 
 const Character = ({ id }: ICharacterPropsType) => {
 	const { isLoading, data, isError } = useCharacter(id)
