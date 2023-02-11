@@ -1,0 +1,29 @@
+@import "src/style/variables";
+
+.banner {
+  padding: 40px 35px;
+  background-color: $dark;
+  position: relative;
+
+  button {
+    margin-top: 13px;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.045em;
+    color: #FFFFFF;
+
+    &:nth-child(2) {
+      margin-top: 33px;
+    }
+  }
+
+  &__decoration {
+    position: absolute;
+    bottom: 14px;
+    right: -37px;
+  }
+}

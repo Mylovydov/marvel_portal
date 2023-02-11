@@ -2,7 +2,7 @@ import './charList.scss'
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { ICharListProps } from './charList.interface'
 import { ICharacter } from '../../interfaces/character.interface'
-import useMarvelService from '../../services/MarvelService'
+import useMarvelService from '../../services/marvelService/MarvelService'
 import { ErrorMessage } from '../errorMessage'
 import { Spinner } from '../spinner'
 
@@ -39,7 +39,9 @@ const CharList = (props: ICharListProps) => {
 
 	const focusOnSelectChar = (id: number) => {
 		const focusElem = charItemsRef.current[id]
-		charItemsRef.current.forEach(elem => elem.classList.remove('char__item_selected'))
+		charItemsRef.current.forEach(elem =>
+			elem.classList.remove('char__item_selected')
+		)
 		focusElem.classList.add('char__item_selected')
 		focusElem.focus()
 	}
@@ -47,7 +49,9 @@ const CharList = (props: ICharListProps) => {
 	const renderCharacters = (chars: ICharacter[]) => {
 		const items = chars.map((char, i) => {
 			const imgStyle: CSSProperties = {
-				objectFit: `${char.thumbnail.includes('image_not_available') ? 'fill' : 'cover'}`,
+				objectFit: `${
+					char.thumbnail.includes('image_not_available') ? 'fill' : 'cover'
+				}`,
 				maxWidth: 'initial'
 			}
 

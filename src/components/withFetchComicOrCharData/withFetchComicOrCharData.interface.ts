@@ -1,4 +1,4 @@
-import useMarvelService from '../../services/MarvelService'
+import useMarvelService from '../../services/marvelService/MarvelService'
 
 type IFetchFnType = keyof Pick<
 	ReturnType<typeof useMarvelService>,

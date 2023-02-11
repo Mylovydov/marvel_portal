@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import useMarvelService from '../../../services/MarvelService'
+import useMarvelService from '../../../services/marvelService/MarvelService'
 import { IComic } from '../../../interfaces/character.interface'
 import { ErrorMessage } from '../../errorMessage'
 import { Spinner } from '../../spinner'

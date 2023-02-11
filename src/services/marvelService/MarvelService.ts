@@ -3,8 +3,8 @@ import {
 	ICharComics,
 	IComic,
 	IComicsData
-} from '../interfaces/character.interface'
-import useHttp from '../hooks/useHttp/useHttp'
+} from '../../interfaces/character.interface'
+import useHttp from '../../hooks/useHttp/useHttp'
 import { IUseMarvelService } from './marvelService.interface'
 
 const _apiBase = 'https://gateway.marvel.com:443/v1/public/'

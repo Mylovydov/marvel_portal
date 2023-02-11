@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './searchForm.scss'
-import useMarvelService from '../../services/MarvelService'
+import useMarvelService from '../../services/marvelService/MarvelService'
 import { ICharacter } from '../../interfaces/character.interface'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
