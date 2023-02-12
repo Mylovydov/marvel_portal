@@ -17,12 +17,10 @@ const useMarvelServiceForQuery = (): IUseMarvelService => {
 		const characters = await request({
 			url: `${_apiBase}characters?limit=9&offset=${offset}&${_apiKey}`
 		})
-
 		return characters.data.results.map(transformCharacter)
 	}
 
 	const getCharacter = async (id: number | string): Promise<ICharacter> => {
-		console.log(`call-------------`, id)
 		const character = await request({
 			url: `${_apiBase}characters/${id}?${_apiKey}`
 		})

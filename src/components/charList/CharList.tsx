@@ -2,30 +2,30 @@ import './charList.scss'
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { ICharListProps } from './charList.interface'
 import { ICharacter } from '../../interfaces/character.interface'
-import useMarvelService from '../../services/marvelService/MarvelService'
 import { ErrorMessage } from '../errorMessage'
 import { Spinner } from '../spinner'
+import useMarvelServiceForQuery from '../../services/marvelServiceForQuery/marvelServiceForQuery'
+import { useQuery } from 'react-query'
 
-const CharList = (props: ICharListProps) => {
-	const { isLoading, error, getAllCharacters } = useMarvelService()
+const CharList = ({ onCharSelected }: ICharListProps) => {
+	const { getAllCharacters } = useMarvelServiceForQuery()
 
-	const [charList, setCharList] = useState<ICharacter[]>([])
 	const [isInitialLoading, setIsInitialLoading] = useState(true)
-	const [offset, setOffset] = useState(210)
+	const [charList, setCharList] = useState<ICharacter[]>([])
+	const [offset, setOffset] = useState(250)
 
-	const { onCharSelected } = props
+	const { isLoading, isError, data } = useQuery(['charList', offset], () =>
+		getAllCharacters(offset)
+	)
 
 	useEffect(() => {
-		onRequest()
-	}, [])
+		if (data) {
+			setIsInitialLoading(false)
+			setCharList(prevState => [...prevState, ...data])
+		}
+	}, [data])
 
-	const onRequest = (offset?: number) => {
-		getAllCharacters(offset).then(onCharactersLoaded)
-	}
-
-	const onCharactersLoaded = (newCharList: ICharacter[]) => {
-		setCharList((charList: ICharacter[]) => [...charList, ...newCharList])
-		setIsInitialLoading(false)
+	const onGetNextCharacters = () => {
 		setOffset((offset: number) => offset + 9)
 	}
 
@@ -84,9 +84,9 @@ const CharList = (props: ICharListProps) => {
 
 	const charItems = renderCharacters(charList)
 
-	const errorMessage = error && <ErrorMessage />
-	const spinner = isInitialLoading && <Spinner />
-	const content = !(isInitialLoading || error) && charItems
+	const errorMessage = isError && <ErrorMessage />
+	const spinner = isInitialLoading && !data && <Spinner />
+	const content = !(isInitialLoading || isError) && charItems
 
 	return (
 		<div className="char__list">
@@ -96,7 +96,7 @@ const CharList = (props: ICharListProps) => {
 			<button
 				disabled={isLoading}
 				className="button button__main button__long"
-				onClick={() => onRequest(offset)}
+				onClick={() => onGetNextCharacters()}
 			>
 				<div className="inner">load more</div>
 			</button>
