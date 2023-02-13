@@ -19,7 +19,7 @@ const SearchForm = () => {
 	const [char, setChar] = useState<ICharacter | null>(null)
 	const [isSearchOver, setIsSearchOver] = useState(false)
 
-	const { mutate, isError, isLoading, isIdle } = useMutation(findCharacter)
+	const { mutate, isError, isLoading } = useMutation(findCharacter)
 
 	const navigate = useNavigate()
 
@@ -35,7 +35,7 @@ const SearchForm = () => {
 				</button>
 			</>
 		)
-		console.log(isIdle)
+
 		const notFoundMessage = !isLoading && isSearchOver && !char && (
 			<div className="not-found">
 				{'The character was not found. Check the name and try again'}
