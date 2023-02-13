@@ -21,7 +21,6 @@ const SingleCharPage = ({ item }: SingleCharProps) => {
 
 export default WithFetchComicOrCharData(
 	SingleCharPage,
-	'charId',
 	'getCharacter',
 	'singleCharacter'
 )

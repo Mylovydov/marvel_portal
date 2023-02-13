@@ -6,5 +6,4 @@ type IFetchFnType = keyof Pick<
 >
 
 export type EnabledQueryKeyType = 'singleComic' | 'singleCharacter'
-export type EnabledParamsNameType = 'comicId' | 'charId'
 export default IFetchFnType
