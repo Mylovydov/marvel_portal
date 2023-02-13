@@ -85,7 +85,7 @@ const CharList = ({ onCharSelected }: ICharListProps) => {
 	const charItems = renderCharacters(charList)
 
 	const errorMessage = isError && <ErrorMessage />
-	const spinner = isInitialLoading && !data && <Spinner />
+	const spinner = isInitialLoading && !data && !isError && <Spinner />
 	const content = !(isInitialLoading || isError) && charItems
 
 	return (

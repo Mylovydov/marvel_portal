@@ -103,9 +103,11 @@
   }
 
   &:disabled {
-    &.button__main::before, &.button__main::after, & .inner  {
+    &.button__main::before, &.button__main::after, & .inner {
+      //background-color: darken($main-color, 5);
       background-color: darken($main-color, 5);
     }
+
     & .inner::before, .inner::after {
       border-color: darken($main-color, 5) transparent;
     }

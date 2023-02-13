@@ -28,7 +28,9 @@ const MainPage: FC = () => {
 					<ErrorBoundary>
 						<CharInfo selectedCharId={selectedCharId} />
 					</ErrorBoundary>
-					<SearchForm />
+					<ErrorBoundary>
+						<SearchForm />
+					</ErrorBoundary>
 				</div>
 			</div>
 			<img className="bg-decoration" src={decoration} alt="vision" />

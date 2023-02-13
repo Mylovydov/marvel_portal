@@ -10,7 +10,6 @@ const useHttpForQuery = () => {
 			body
 		}: IRequestData) => {
 			const response = await fetch(url, { headers, method, body })
-
 			if (!response.ok) {
 				throw new Error(
 					`Something went wrong for ${url}, status: ${response.statusText}`
