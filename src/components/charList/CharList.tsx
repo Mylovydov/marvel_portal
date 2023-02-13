@@ -4,7 +4,9 @@ import { ICharListProps } from './charList.interface'
 import { ICharacter } from '../../interfaces/character.interface'
 import { ErrorMessage } from '../errorMessage'
 import { Spinner } from '../spinner'
-import useMarvelServiceForQuery from '../../services/marvelServiceForQuery/marvelServiceForQuery'
+import useMarvelServiceForQuery, {
+	_baseOffset
+} from '../../services/marvelServiceForQuery/marvelServiceForQuery'
 import { useQuery } from 'react-query'
 
 const CharList = ({ onCharSelected }: ICharListProps) => {
@@ -12,7 +14,7 @@ const CharList = ({ onCharSelected }: ICharListProps) => {
 
 	const [isInitialLoading, setIsInitialLoading] = useState(true)
 	const [charList, setCharList] = useState<ICharacter[]>([])
-	const [offset, setOffset] = useState(250)
+	const [offset, setOffset] = useState(_baseOffset)
 
 	const { isLoading, isError, data } = useQuery(['charList', offset], () =>
 		getAllCharacters(offset)

@@ -3,10 +3,14 @@ import { IUseMarvelService } from './marvelServiceForQuery.interface'
 import useHttpForQuery from '../../hooks/useHttpForQuery/useHttpForQuery'
 import { transformCharacter, transformComic } from './helpers'
 
-const _apiBase = 'https://gateway.marvel.com:443/v1/public/'
-const _apiKey = 'apikey=d423d5fe13c364f3025f9ffe33f5eef1'
-const _baseOffset = 250
-const _baseComicsOffset = 0
+const _apiBase = process.env.REACT_APP_BASE_URL
+const _apiKey = process.env.REACT_APP_API_KEY
+export const _baseOffset = process.env.REACT_APP_BASE_OFFSET
+	? +process.env.REACT_APP_BASE_OFFSET
+	: 250
+export const _baseComicsOffset = process.env.REACT_APP_BASE_COMICS_OFFSET
+	? +process.env.REACT_APP_BASE_COMICS_OFFSET
+	: 200
 
 const useMarvelServiceForQuery = (): IUseMarvelService => {
 	const request = useHttpForQuery()
@@ -45,7 +49,7 @@ const useMarvelServiceForQuery = (): IUseMarvelService => {
 	}
 
 	const getAllComics = async (
-		offset = _baseComicsOffset
+		offset: number = _baseComicsOffset
 	): Promise<IComic[]> => {
 		const comics = await request({
 			url: `${_apiBase}comics?limit=8&offset=${offset}&${_apiKey}`
