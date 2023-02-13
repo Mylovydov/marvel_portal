@@ -1,46 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
-import useMarvelService from '../../services/marvelService/MarvelService'
 import { ICharacter, IComic } from '../../interfaces/character.interface'
 import { Spinner } from '../../components/spinner'
 import { ErrorMessage } from '../../components/errorMessage'
-import IFetchFnType from './withFetchComicOrCharData.interface'
+import IFetchFnType, {
+	EnabledParamsNameType,
+	EnabledQueryKeyType
+} from './withFetchComicOrCharData.interface'
+import useMarvelServiceForQuery from '../../services/marvelServiceForQuery/marvelServiceForQuery'
+import { useQuery } from 'react-query'
 
 function WithFetchComicOrCharData<T>(
 	WrappedComponent: React.ComponentType<T>,
-	paramsName: string,
-	fetchFn: IFetchFnType
+	paramsName: EnabledParamsNameType = 'comicId',
+	fetchFn: IFetchFnType = 'getComic',
+	queryKey: EnabledQueryKeyType = 'singleComic'
 ) {
-	return function WithFetchComicOrCharData(hokProps: Omit<T, `item`>) {
+	return function WithFetchComicOrCharData(hokProps: Omit<T, 'item'>) {
 		const params = useParams()
+		const service = useMarvelServiceForQuery()
+
 		const comicOrCharId = params[paramsName]
 
-		const service = useMarvelService()
-		const [comicOrChar, setComicOrChar] = useState<IComic | ICharacter | null>(
-			null
+		const { data, isError, isLoading } = useQuery<IComic | ICharacter, Error>(
+			[queryKey, comicOrCharId],
+			() => service[fetchFn](comicOrCharId!),
+			{
+				enabled: !!comicOrCharId
+			}
 		)
 
-		const onComicLoaded = (comicOrChar: IComic | ICharacter | null) => {
-			if (comicOrChar) {
-				setComicOrChar(comicOrChar)
-			}
-		}
-
-		const loadComic = () => {
-			service.clearError()
-			if (comicOrCharId) {
-				service[fetchFn](comicOrCharId).then(onComicLoaded)
-			}
-		}
-
-		useEffect(() => {
-			loadComic()
-		}, [comicOrCharId])
-
-		const spinner = service.isLoading && <Spinner />
-		const errorMessage = service.error && <ErrorMessage />
-		const content = !(service.isLoading || service.error) && comicOrChar && (
-			<WrappedComponent {...(hokProps as T)} item={comicOrChar} />
+		const spinner = isLoading && <Spinner />
+		const errorMessage = isError && <ErrorMessage />
+		const content = !(isLoading || isError) && data && (
+			<WrappedComponent {...(hokProps as T)} item={data} />
 		)
 
 		return (

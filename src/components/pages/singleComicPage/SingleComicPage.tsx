@@ -23,4 +23,4 @@ const SingleComicPage = ({ item }: ISingleComicProps) => {
 	)
 }
 
-export default WithFetchComicOrCharData(SingleComicPage, `comicId`, `getComic`)
+export default WithFetchComicOrCharData(SingleComicPage)

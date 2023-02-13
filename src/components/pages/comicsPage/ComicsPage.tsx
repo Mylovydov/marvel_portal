@@ -1,36 +1,38 @@
 import React, { FC, useEffect, useState } from 'react'
-import useMarvelService from '../../../services/marvelService/MarvelService'
 import { IComic } from '../../../interfaces/character.interface'
 import { ErrorMessage } from '../../errorMessage'
 import { Spinner } from '../../spinner'
 import { ComicsList } from '../../comicsList'
 import { ErrorBoundary } from '../../errorBoundary'
 import './comicsPage.scss'
+import useMarvelServiceForQuery from '../../../services/marvelServiceForQuery/marvelServiceForQuery'
+import { useQuery } from 'react-query'
 
 const ComicsPage: FC = () => {
-	const { getAllComics, isLoading, error } = useMarvelService()
+	const { getAllComics } = useMarvelServiceForQuery()
 
 	const [comicsList, setComicsList] = useState<IComic[]>([])
 	const [offset, setOffset] = useState<number>(200)
 	const [isInitialLoading, setIsInitialLoading] = useState(true)
 
-	const onRequest = (offset?: number) => {
-		getAllComics(offset).then(onComicsLoaded)
-	}
+	const { data, isError, isLoading } = useQuery(['comics', offset], () =>
+		getAllComics(offset)
+	)
 
-	const onComicsLoaded = (comicsList: IComic[]) => {
-		setComicsList(prevComicsList => [...prevComicsList, ...comicsList])
+	const onGetComics = () => {
 		setOffset(prevOffset => prevOffset + 8)
-		setIsInitialLoading(false)
 	}
 
 	useEffect(() => {
-		onRequest()
-	}, [])
+		if (data) {
+			setComicsList(prevComicsList => [...prevComicsList, ...data])
+			setIsInitialLoading(false)
+		}
+	}, [data])
 
-	const errorMessage = error && <ErrorMessage />
-	const spinner = isInitialLoading && !error && <Spinner />
-	const content = !(isLoading && error) && <ComicsList comics={comicsList} />
+	const errorMessage = isError && <ErrorMessage />
+	const spinner = isInitialLoading && !isError && <Spinner />
+	const content = !(isLoading && isError) && <ComicsList comics={comicsList} />
 
 	return (
 		<ErrorBoundary>
@@ -42,8 +44,8 @@ const ComicsPage: FC = () => {
 				</div>
 				<div className="comics-page__action">
 					<button
-						onClick={() => onRequest(offset)}
-						disabled={isLoading || !!error}
+						onClick={() => onGetComics()}
+						disabled={isLoading || isError}
 						className="button button__main button__long"
 					>
 						<div className="inner">
