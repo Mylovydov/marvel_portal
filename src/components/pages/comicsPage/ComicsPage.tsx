@@ -7,6 +7,7 @@ import { ErrorBoundary } from '../../errorBoundary'
 import './comicsPage.scss'
 import useMarvelServiceForQuery from '../../../services/marvelServiceForQuery/marvelServiceForQuery'
 import { useQuery } from 'react-query'
+import Head from '../../Head/Head'
 
 const ComicsPage: FC = () => {
 	const { getAllComics } = useMarvelServiceForQuery()
@@ -35,26 +36,32 @@ const ComicsPage: FC = () => {
 	const content = !(isLoading && isError) && <ComicsList comics={comicsList} />
 
 	return (
-		<ErrorBoundary>
-			<section className="comics-page">
-				<div className="comics-page__body">
-					{errorMessage}
-					{spinner}
-					{content}
-				</div>
-				<div className="comics-page__action">
-					<button
-						onClick={() => onGetComics()}
-						disabled={isLoading || isError}
-						className="button button__main button__long"
-					>
-						<div className="inner">
-							{isLoading ? 'Loading...' : 'load more'}
-						</div>
-					</button>
-				</div>
-			</section>
-		</ErrorBoundary>
+		<>
+			<Head
+				title="Marvel portal | Comics page"
+				description="Page with list of comics"
+			/>
+			<ErrorBoundary>
+				<section className="comics-page">
+					<div className="comics-page__body">
+						{errorMessage}
+						{spinner}
+						{content}
+					</div>
+					<div className="comics-page__action">
+						<button
+							onClick={() => onGetComics()}
+							disabled={isLoading || isError}
+							className="button button__main button__long"
+						>
+							<div className="inner">
+								{isLoading ? 'Loading...' : 'load more'}
+							</div>
+						</button>
+					</div>
+				</section>
+			</ErrorBoundary>
+		</>
 	)
 }
 

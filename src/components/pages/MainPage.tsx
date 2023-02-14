@@ -5,6 +5,7 @@ import decoration from '../../resources/img/vision.png'
 import { CharInfo } from '../charInfo'
 import { CharList } from '../charList'
 import SearchForm from '../searchForm/SearchForm'
+import Head from '../Head/Head'
 
 const MainPage: FC = () => {
 	const [selectedCharId, setSelectedCharId] = useState<number | null>(null)
@@ -15,6 +16,7 @@ const MainPage: FC = () => {
 
 	return (
 		<>
+			<Head title="Marvel portal" description="Marvel information portal" />
 			<ErrorBoundary>
 				<RandomChar />
 			</ErrorBoundary>
