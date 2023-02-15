@@ -1,9 +1,10 @@
-import { useCallback, useState } from 'react'
-import { IRequestData } from './useHttp.interface'
+import { useCallback } from 'react'
+import { IRequestData, IUseHttpReturn } from './useHttp.interface'
+import useProcess from '../useProcess/useProcess'
+import { ProcessEnum } from '../useProcess/useProcess.interface'
 
-const useHttp = () => {
-	const [isLoading, setIsLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
+const useHttp = (): IUseHttpReturn => {
+	const [process, setProcess] = useProcess(ProcessEnum.WAITING)
 
 	const request = useCallback(
 		async ({
@@ -12,34 +13,37 @@ const useHttp = () => {
 			method = 'GET',
 			body
 		}: IRequestData) => {
+			setProcess(ProcessEnum.LOADING)
+
 			try {
-				setIsLoading(true)
 				const response = await fetch(url, { headers, method, body })
 
 				if (!response.ok) {
-					throw new Error(`Something went wrong for ${url}, status: ${response.statusText}`)
+					throw new Error(
+						`Something went wrong for ${url}, status: ${response.statusText}`
+					)
 				}
 
 				const data = await response.json()
-				setIsLoading(false)
+
 				return data
 			} catch (err: any) {
-				setError(err.message)
+				setProcess(ProcessEnum.ERROR)
 				throw err
-			} finally {
-				setIsLoading(false)
 			}
 		},
 		[]
 	)
 
-	const clearError = useCallback(() => setError(null), [])
+	const clearError = useCallback(() => {
+		setProcess(ProcessEnum.LOADING)
+	}, [])
 
 	return {
-		isLoading,
-		error,
 		request,
-		clearError
+		clearError,
+		process,
+		setProcess
 	}
 }
 

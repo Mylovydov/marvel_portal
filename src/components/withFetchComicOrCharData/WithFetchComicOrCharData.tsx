@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useMarvelService from '../../services/MarvelService'
 import { ICharacter, IComic } from '../../interfaces/character.interface'
-import { Spinner } from '../spinner'
-import { ErrorMessage } from '../errorMessage'
 import IFetchFnType from './withFetchComicOrCharData.interface'
+import setContent from '../../utils/setContent'
+import { ProcessEnum } from '../../hooks/useProcess/useProcess.interface'
 
 function WithFetchComicOrCharData<T>(
 	WrappedComponent: React.ComponentType<T>,
@@ -15,7 +15,7 @@ function WithFetchComicOrCharData<T>(
 		const params = useParams()
 		const comicOrCharId = params[paramsName]
 
-		const service = useMarvelService()
+		const { clearError, process, setProcess, ...rest } = useMarvelService()
 		const [comicOrChar, setComicOrChar] = useState<IComic | ICharacter | null>(
 			null
 		)
@@ -27,9 +27,11 @@ function WithFetchComicOrCharData<T>(
 		}
 
 		const loadComic = () => {
-			service.clearError()
+			clearError()
 			if (comicOrCharId) {
-				service[fetchFn](comicOrCharId).then(onComicLoaded)
+				rest[fetchFn](comicOrCharId)
+					.then(onComicLoaded)
+					.then(() => setProcess(ProcessEnum.CONFIRMED))
 			}
 		}
 
@@ -37,17 +39,11 @@ function WithFetchComicOrCharData<T>(
 			loadComic()
 		}, [comicOrCharId])
 
-		const spinner = service.isLoading && <Spinner />
-		const errorMessage = service.error && <ErrorMessage />
-		const content = !(service.isLoading || service.error) && comicOrChar && (
-			<WrappedComponent {...(hokProps as T)} item={comicOrChar} />
-		)
-
 		return (
 			<>
-				{spinner}
-				{errorMessage}
-				{content}
+				{setContent(process, () => (
+					<WrappedComponent {...(hokProps as T)} item={comicOrChar} />
+				))}
 			</>
 		)
 	}

@@ -3,24 +3,24 @@ import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { ICharListProps } from './charList.interface'
 import { ICharacter } from '../../interfaces/character.interface'
 import useMarvelService from '../../services/MarvelService'
-import { ErrorMessage } from '../errorMessage'
-import { Spinner } from '../spinner'
+import { ProcessEnum } from '../../hooks/useProcess/useProcess.interface'
+import setCharListContent from '../../utils/setCharListContent'
 
-const CharList = (props: ICharListProps) => {
-	const { isLoading, error, getAllCharacters } = useMarvelService()
+const CharList = ({ onCharSelected }: ICharListProps) => {
+	const { getAllCharacters, process, setProcess } = useMarvelService()
 
 	const [charList, setCharList] = useState<ICharacter[]>([])
 	const [isInitialLoading, setIsInitialLoading] = useState(true)
 	const [offset, setOffset] = useState(210)
-
-	const { onCharSelected } = props
 
 	useEffect(() => {
 		onRequest()
 	}, [])
 
 	const onRequest = (offset?: number) => {
-		getAllCharacters(offset).then(onCharactersLoaded)
+		getAllCharacters(offset)
+			.then(onCharactersLoaded)
+			.then(() => setProcess(ProcessEnum.CONFIRMED))
 	}
 
 	const onCharactersLoaded = (newCharList: ICharacter[]) => {
@@ -39,7 +39,9 @@ const CharList = (props: ICharListProps) => {
 
 	const focusOnSelectChar = (id: number) => {
 		const focusElem = charItemsRef.current[id]
-		charItemsRef.current.forEach(elem => elem.classList.remove('char__item_selected'))
+		charItemsRef.current.forEach(elem =>
+			elem.classList.remove('char__item_selected')
+		)
 		focusElem.classList.add('char__item_selected')
 		focusElem.focus()
 	}
@@ -47,7 +49,9 @@ const CharList = (props: ICharListProps) => {
 	const renderCharacters = (chars: ICharacter[]) => {
 		const items = chars.map((char, i) => {
 			const imgStyle: CSSProperties = {
-				objectFit: `${char.thumbnail.includes('image_not_available') ? 'fill' : 'cover'}`,
+				objectFit: `${
+					char.thumbnail.includes('image_not_available') ? 'fill' : 'cover'
+				}`,
 				maxWidth: 'initial'
 			}
 
@@ -78,19 +82,15 @@ const CharList = (props: ICharListProps) => {
 		return <ul className="char__grid">{items}</ul>
 	}
 
-	const charItems = renderCharacters(charList)
-
-	const errorMessage = error && <ErrorMessage />
-	const spinner = isInitialLoading && <Spinner />
-	const content = !(isInitialLoading || error) && charItems
-
 	return (
 		<div className="char__list">
-			{errorMessage}
-			{spinner}
-			{content}
+			{setCharListContent(
+				process,
+				() => renderCharacters(charList),
+				isInitialLoading
+			)}
 			<button
-				disabled={isLoading}
+				disabled={process === ProcessEnum.LOADING}
 				className="button button__main button__long"
 				onClick={() => onRequest(offset)}
 			>

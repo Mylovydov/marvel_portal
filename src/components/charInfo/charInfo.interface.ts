@@ -11,5 +11,5 @@ export interface ICharInfoState {
 }
 
 export interface IViewProps {
-	char: ICharacter
+	data: ICharacter
 }

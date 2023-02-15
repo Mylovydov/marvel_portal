@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import Comic from '../comic/Comic'
 import { IComicsListProps } from './comicsList.interface'
 
-const ComicsList = ({ comics }: IComicsListProps) => {
+const ComicsList = ({ data }: IComicsListProps) => {
 	const comicsRefs = useRef<HTMLAnchorElement[]>([])
 
 	const setFocusOnSelectedComic = (id: number) => {
@@ -19,7 +19,7 @@ const ComicsList = ({ comics }: IComicsListProps) => {
 
 	return (
 		<ul className="comics-list">
-			{comics.map((comic, i) => (
+			{data.map((comic, i) => (
 				<li key={i} className="comics-list__comic">
 					<Comic
 						comic={comic}

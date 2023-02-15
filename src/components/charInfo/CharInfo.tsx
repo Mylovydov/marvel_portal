@@ -3,21 +3,14 @@ import { CSSProperties, useEffect, useState } from 'react'
 import { ICharInfoProps, IViewProps } from './charInfo.interface'
 import { ICharacter, ICharComics } from '../../interfaces/character.interface'
 import useMarvelService from '../../services/MarvelService'
-import { Skeleton } from '../skeleton'
-import { ErrorMessage } from '../errorMessage'
-import { Spinner } from '../spinner'
 import { Link } from 'react-router-dom'
+import setContent from '../../utils/setContent'
+import { ProcessEnum } from '../../hooks/useProcess/useProcess.interface'
 
-const CharInfo = (props: ICharInfoProps) => {
-	const { isLoading, error, getCharacter, clearError } = useMarvelService()
+const CharInfo = ({ selectedCharId }: ICharInfoProps) => {
+	const { getCharacter, clearError, process, setProcess } = useMarvelService()
 
 	const [char, setChar] = useState<ICharacter | null>(null)
-
-	const { selectedCharId } = props
-
-	useEffect(() => {
-		onUpdateChar()
-	}, [])
 
 	useEffect(() => {
 		onUpdateChar()
@@ -28,29 +21,25 @@ const CharInfo = (props: ICharInfoProps) => {
 	}
 
 	const onUpdateChar = () => {
-		clearError()
-		if (selectedCharId) {
-			getCharacter(selectedCharId).then(onCharLoaded)
+		if (!selectedCharId) {
+			return
 		}
+		clearError()
+		getCharacter(selectedCharId)
+			.then(onCharLoaded)
+			.then(() => setProcess(ProcessEnum.CONFIRMED))
 	}
 
-	const skeleton = !char && !error && !isLoading && <Skeleton />
-	const errorMessage = error && <ErrorMessage />
-	const spinner = isLoading && <Spinner />
-	const content = !(error || isLoading || !char) && <View char={char} />
+	// const skeleton = !char && !error && !isLoading && <Skeleton />
+	// const errorMessage = error && <ErrorMessage />
+	// const spinner = isLoading && <Spinner />
+	// const content = !(error || isLoading || !char) && <View char={char} />
 
-	return (
-		<div className="char__info">
-			{skeleton}
-			{errorMessage}
-			{spinner}
-			{content}
-		</div>
-	)
+	return <div className="char__info">{setContent(process, View, char)}</div>
 }
 
-const View = ({ char }: IViewProps) => {
-	const { name, description, homepage, thumbnail, wiki, comics } = char
+const View = ({ data }: IViewProps) => {
+	const { name, description, homepage, thumbnail, wiki, comics } = data
 
 	const comicsItems = comics.length
 		? comics.map((comicsItem: ICharComics, i: number) => (

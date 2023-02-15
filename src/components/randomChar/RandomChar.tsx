@@ -3,19 +3,26 @@ import mjolnir from '../../resources/img/mjolnir.png'
 import { CSSProperties, useEffect, useState } from 'react'
 import useMarvelService from '../../services/MarvelService'
 import { ICharacter } from '../../interfaces/character.interface'
-import Spinner from '../spinner/Spinner'
-import { ErrorMessage } from '../errorMessage'
+import setContent from '../../utils/setContent'
+import { ProcessEnum } from '../../hooks/useProcess/useProcess.interface'
 
-const ViewBox = ({ char }: { char: ICharacter }) => {
-	const { name, description, homepage, thumbnail, wiki } = char
+const View = ({ data }: { data: ICharacter }) => {
+	const { name, description, homepage, thumbnail, wiki } = data
 
 	const imgStyle: CSSProperties = {
-		objectFit: `${thumbnail.includes('image_not_available') ? 'contain' : 'cover'}`
+		objectFit: `${
+			thumbnail.includes('image_not_available') ? 'contain' : 'cover'
+		}`
 	}
 
 	return (
 		<div className="randomchar__block">
-			<img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle} />
+			<img
+				src={thumbnail}
+				alt="Random character"
+				className="randomchar__img"
+				style={imgStyle}
+			/>
 			<div className="randomchar__info">
 				<p className="randomchar__name">{name}</p>
 				<p className="randomchar__descr">{description}</p>
@@ -33,7 +40,7 @@ const ViewBox = ({ char }: { char: ICharacter }) => {
 }
 
 const RandomChar = () => {
-	const { isLoading, error, getCharacter, clearError } = useMarvelService()
+	const { getCharacter, clearError, process, setProcess } = useMarvelService()
 
 	const [char, setChar] = useState<ICharacter | null>(null)
 
@@ -48,18 +55,14 @@ const RandomChar = () => {
 	const updateChar = () => {
 		clearError()
 		const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
-		getCharacter(id).then(onCharLoaded)
+		getCharacter(id)
+			.then(onCharLoaded)
+			.then(() => setProcess(ProcessEnum.CONFIRMED))
 	}
-
-	const errorMessage = error && <ErrorMessage />
-	const spinner = isLoading && <Spinner />
-	const content = !(error || isLoading) && char && <ViewBox char={char} />
 
 	return (
 		<div className="randomchar">
-			{errorMessage}
-			{spinner}
-			{content}
+			{setContent(process, View, char)}
 			<div className="randomchar__static">
 				<p className="randomchar__title">
 					Random character for today!
